@@ -344,7 +344,11 @@ border-color: transparent;
 .cb{
   background-color: transparent;
 }
-.filter{
+.filter {
   display: flex;
-  align-items: flex-start;
+  justify-content: right;
+  
+}
+.filter button {background-color: transparent;
+ 
 }

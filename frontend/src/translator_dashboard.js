@@ -246,7 +246,6 @@ const TranslatorDashboard = () => {
                         >
                           APPLY
                         </button>
-                        <button onClick={() => close()}>Close modal</button>
                       </div>
                     </div>
                   )}
