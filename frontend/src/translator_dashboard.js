@@ -29,18 +29,35 @@ const TranslatorDashboard = () => {
     picked: false,
     unpicked: false,
   });
+  // table
   const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
   const indexOfLastItem = currentPage * 5;
   const indexOfFirstItem = indexOfLastItem - 5;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
-  const currentmyqueue = myQueue.slice(indexOfFirstItem, indexOfLastItem);
-  const currentdraft = draftTable.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Change page function
   const nextPage = () => setCurrentPage(currentPage + 1);
   const prevPage = () => setCurrentPage(currentPage - 1);
+
+  // draft page
+  const [dcurrentPage, dsetCurrentPage] = useState(1);
+
+  const indexOfLastd = dcurrentPage * 5;
+  const indexOfFirstd = indexOfLastd - 5;
+
+  const currentdraft = draftTable.slice(indexOfFirstd, indexOfLastd);
+
+  const nextPaged = () => dsetCurrentPage(dcurrentPage + 1);
+  const prevPaged = () => dsetCurrentPage(dcurrentPage - 1);
+
+  //myqueue
+  const [qcurrentPage, setQCurrentPage] = useState(1);
+  const qindexOfLastItem = qcurrentPage * 5;
+  const qindexOfFirstItem = qindexOfLastItem - 5;
+  const currentmyqueue = myQueue.slice(qindexOfFirstItem, qindexOfLastItem);
+
+  const qnextPage = () => setQCurrentPage(qcurrentPage + 1);
+  const qprevPage = () => setQCurrentPage(qcurrentPage - 1);
 
   useEffect(() => {
     axios
@@ -247,7 +264,7 @@ const TranslatorDashboard = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {currentItems.map((index) => (
+                    {currentItems.slice(0, 5).map((index) => (
                       <TableRow key={index.id} hover>
                         <TableCell>{index.file_name}</TableCell>
                         <TableCell>{formatDate(index.assigned_dt)}</TableCell>
@@ -333,16 +350,16 @@ const TranslatorDashboard = () => {
                   <Button
                     className="back_button"
                     sx={{ marginRight: 1, marginTop: 5.5 }}
-                    onClick={prevPage}
-                    disabled={currentPage === 1}
+                    onClick={qprevPage}
+                    disabled={qcurrentPage === 1}
                   >
                     back
                   </Button>
                   <Button
                     className="next_button"
                     sx={{ marginRight: 1, marginTop: 5.5 }}
-                    onClick={nextPage}
-                    disabled={indexOfLastItem >= filteredData.length}
+                    onClick={qnextPage}
+                    disabled={qindexOfLastItem >= myQueue.length}
                   >
                     next
                   </Button>
@@ -387,16 +404,16 @@ const TranslatorDashboard = () => {
                   <Button
                     className="back_button"
                     sx={{ marginRight: 1, marginTop: 5.5 }}
-                    onClick={prevPage}
-                    disabled={currentPage === 1}
+                    onClick={prevPaged}
+                    disabled={dcurrentPage === 1}
                   >
                     back
                   </Button>
                   <Button
                     className="next_button"
                     sx={{ marginRight: 1, marginTop: 5.5 }}
-                    onClick={nextPage}
-                    disabled={indexOfLastItem >= filteredData.length}
+                    onClick={nextPaged}
+                    disabled={indexOfLastd >= draftTable.length}
                   >
                     next
                   </Button>
